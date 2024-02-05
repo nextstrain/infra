@@ -29,9 +29,9 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
   })
 
   managed_policy_arns = [
-    "arn:aws:iam::827581582529:policy/NextstrainJobsAccessToBatch",
-    "arn:aws:iam::827581582529:policy/NextstrainJobsAccessToBucket",
-    "arn:aws:iam::827581582529:policy/NextstrainJobsAccessToLogs",
+    aws_iam_policy.NextstrainJobsAccessToBatch.arn,
+    aws_iam_policy.NextstrainJobsAccessToBucket.arn,
+    aws_iam_policy.NextstrainJobsAccessToLogs.arn,
   ]
   inline_policy {}
 }
