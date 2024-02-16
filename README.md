@@ -10,6 +10,28 @@ configurations in that repository][nextstrain.org's Terraform documentation].
 [nextstrain.org's Terraform documentation]: https://docs.nextstrain.org/projects/nextstrain-dot-org/page/terraform.html
 
 
+## Synopsis
+
+One time initialization for the configuration:
+
+    terraform -chdir=env/production init
+
+See what needs doing to bring actual resources into alignment with the current
+configuration:
+
+    terraform -chdir=env/production plan -out=plan
+
+Make those changes so:
+
+    terraform -chdir=env/production apply plan
+
+> [!IMPORTANT]
+> You'll need ambiently-configured AWS credentials with broad admin-level
+> access to read (and optionally modify) resources in our account.
+>
+> Please step cautiously and be careful when using them!
+
+
 ## Documentation
 
 To come.  For now, refer to [nextstrain.org's Terraform documentation][].  The
