@@ -28,12 +28,36 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainTmpBucket" {
     ]
   })
 
-  /* XXX TODO: Inline this instead to avoid clutter if the policy isn't going
-   * to get used elsewhere?
-   *   -trs, 5 Feb 2024 (originally 12 June 2023¹)
-   *
-   * ¹ <https://github.com/nextstrain/private/issues/22#issuecomment-1588211457>
-   */
-  managed_policy_arns = [aws_iam_policy.AllowEditingOfNextstrainTmpBucket.arn]
-  inline_policy {}
+  inline_policy {
+    name = "nextstrain-tmp"
+    policy = jsonencode({
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "BucketActions",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket"
+          ],
+          "Resource": [
+            "arn:aws:s3:::nextstrain-tmp"
+          ]
+        },
+        {
+          "Sid": "ObjectActions",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject",
+            "s3:GetObjectVersion",
+            "s3:PutObject",
+            "s3:DeleteObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::nextstrain-tmp/*"
+          ]
+        }
+      ]
+    })
+  }
+  managed_policy_arns = []
 }
