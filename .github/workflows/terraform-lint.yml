@@ -1,0 +1,31 @@
+name: terraform lint
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+    paths:
+      - '**.tf'
+      - '**.tfvars'
+      - '**.tf.json'
+      - '**.tfvars.json'
+
+  # Manually triggered using GitHub's UI
+  workflow_dispatch:
+jobs:
+  validate:
+    name: validate ${{matrix.env}}
+    strategy:
+      matrix:
+        env:
+          - env/production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: terraform init -backend=false
+        working-directory: ${{matrix.env}}
+
+      - run: terraform validate
+        working-directory: ${{matrix.env}}
