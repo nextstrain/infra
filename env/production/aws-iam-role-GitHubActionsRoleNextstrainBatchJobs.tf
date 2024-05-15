@@ -5,7 +5,7 @@ import {
 
 resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
   name = "GitHubActionsRoleNextstrainBatchJobs"
-  description = "Provides permissions to run jobs on AWS Batch via the Nextstrain CLI to select GitHub Actions OIDC workflows."
+  description = "Provides permissions to launch and monitor jobs on AWS Batch via the Nextstrain CLI to select GitHub Actions OIDC workflows."
 
   max_session_duration = 43200 # seconds (12 hours)
 
@@ -21,7 +21,7 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
         "Condition": {
           "StringLike": {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub": "repo:nextstrain/.github:*"
+            "token.actions.githubusercontent.com:sub": "repo:nextstrain/*:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@refs/heads/*",
           }
         },
       }
