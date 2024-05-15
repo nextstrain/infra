@@ -21,10 +21,7 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
         "Condition": {
           "StringLike": {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub": [
-              "repo:nextstrain/.github:*",
-              "repo:nextstrain/zika:*",
-            ]
+            "token.actions.githubusercontent.com:sub": "repo:nextstrain/.github:*"
           }
         },
       }
