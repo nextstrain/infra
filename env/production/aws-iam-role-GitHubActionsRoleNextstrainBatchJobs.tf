@@ -15,14 +15,36 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
       {
         "Effect": "Allow",
         "Principal": {
-          "Federated": aws_iam_openid_connect_provider.github-actions.arn
-        }
-        "Action": "sts:AssumeRoleWithWebIdentity",
+          "Federated": "cognito-identity.amazonaws.com"
+        },
+        "Action": [
+          "sts:AssumeRoleWithWebIdentity",
+          "sts:TagSession",
+        ],
         "Condition": {
+          "StringEquals": {
+            "cognito-identity.amazonaws.com:aud": aws_cognito_identity_pool.github-actions.id,
+            "aws:RequestTag/repository_owner": "nextstrain",
+            "aws:RequestTag/respository": [
+              "nextstrain/$${sts:RoleSessionName}",
+              "nextstrain/$${sts:RoleSessionName}-ingest", # for ncov and ncov-ingest
+            ],
+          },
           "StringLike": {
-            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub": "repo:nextstrain/.github:*"
-          }
+            "aws:RequestTag/job_workflow_ref": "nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*",
+          },
+          "ForAllValues:StringLike": {
+            "cognito-identity.amazonaws.com:amr": [
+              "authenticated",
+              "token.actions.githubusercontent.com",
+              "${aws_iam_openid_connect_provider.github-actions.arn}:*",
+            ],
+          },
+          # Ensures that a missing/empty amr claim doesn't pass the
+          # ForAllValues condition above.
+          "Null": {
+            "cognito-identity.amazonaws.com:amr": "false",
+          },
         },
       }
     ]
