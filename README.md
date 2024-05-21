@@ -29,6 +29,9 @@ Make those changes so:
 > You'll need ambiently-configured AWS credentials with broad admin-level
 > access to read (and optionally modify) resources in our account.
 >
+> You'll also need a `GITHUB_TOKEN` in the environment with the `actions:write`
+> fine-grained token permission on our repos.
+>
 > Please step cautiously and be careful when using them!
 
 
@@ -44,6 +47,34 @@ less understanding about Terraform state management.
 
 [`import {}` blocks]: https://developer.hashicorp.com/terraform/language/import
 [`terraform import` command]: https://developer.hashicorp.com/terraform/cli/commands/import
+
+
+### How to add a new pathogen repository for use with `pathogen-repo-build`
+
+Some changes are necessary to support a repository's use of our [centralized
+pathogen-repo-build.yaml GitHub Actions workflow](https://github.com/nextstrain/.github/blob/HEAD/.github/workflows/pathogen-repo-build.yaml.in).
+
+1. Add the repository by its short name to the `pathogen_repos` variable in
+   `env/production/locals.tf`.  In most cases, this will be a line like:
+
+   ```hcl
+   "repo-name" = ["repo-name"],
+   ```
+
+2. Plan, review, and apply changes using the `terraform` command.  See synopsis
+   above, as well as [nextstrain.org's Terraform documentation][].
+
+   The plan summary should be "3 to add, 1 to change, 0 to destroy".  Added
+   should be:
+
+     - `aws_iam_policy.NextstrainPathogen["repo-name"]`
+     - `aws_iam_role.GitHubActionsRoleNextstrainRepo["repo-name"]`
+     - `github_actions_repository_oidc_subject_claim_customization_template.nextstrain["repo-name"]`
+
+   Changed should be:
+
+     - `aws_iam_role.GitHubActionsRoleNextstrainBatchJobs`, a new condition
+       value entry like `repo:nextstrain/repo-name:*:job_workflow_ref:…`.
 
 
 ## Rule of thumb
