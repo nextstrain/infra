@@ -29,10 +29,14 @@ Make those changes so:
 > You'll need ambiently-configured AWS credentials with broad admin-level
 > access to read (and optionally modify) resources in our account.
 >
-> You'll also need a `GITHUB_TOKEN` in the environment with the `actions:write`
-> fine-grained token permission on our repos.
+> You'll also need a `GITHUB_TOKEN` in the environment with the following
+> fine-grained token permissions on our repos:
 >
-> Please step cautiously and be careful when using them!
+>   - `actions:write`
+>   - `administration:write`
+>
+> Please step cautiously and be careful when using these two sets of
+> credentials!
 
 
 ## Documentation
