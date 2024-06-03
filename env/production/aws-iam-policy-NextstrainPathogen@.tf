@@ -70,6 +70,22 @@ resource "aws_iam_policy" "NextstrainPathogen" {
           "arn:aws:s3:::nextstrain-staging/files/datasets/${each.key}/*",
         ],
       },
+      {
+        "Sid": "CloudFront",
+        "Effect": "Allow",
+        "Action": [
+          "cloudfront:ListDistributions",
+          "cloudfront:CreateInvalidation",
+          "cloudfront:GetInvalidation",
+        ],
+        # XXX TODO: Import CloudFront resources into Terraform and pull their
+        # IDs dynamically instead of hardcoding them here.
+        #   -trs, 31 May 2024
+        "Resource": [
+          "arn:aws:cloudfront:::distribution/E3LB0EWZKCCV",   # data.nextstrain.org
+          "arn:aws:cloudfront:::distribution/E3L83FTHWUN0BV", # staging.nextstrain.org
+        ],
+      }
     ]
   })
 }
