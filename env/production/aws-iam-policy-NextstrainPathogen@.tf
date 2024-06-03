@@ -71,10 +71,17 @@ resource "aws_iam_policy" "NextstrainPathogen" {
         ],
       },
       {
-        "Sid": "CloudFront",
+        "Sid": "CloudFrontList",
         "Effect": "Allow",
         "Action": [
           "cloudfront:ListDistributions",
+        ],
+        "Resource": "*",
+      },
+      {
+        "Sid": "CloudFrontReadWrite",
+        "Effect": "Allow",
+        "Action": [
           "cloudfront:CreateInvalidation",
           "cloudfront:GetInvalidation",
         ],
@@ -82,8 +89,8 @@ resource "aws_iam_policy" "NextstrainPathogen" {
         # IDs dynamically instead of hardcoding them here.
         #   -trs, 31 May 2024
         "Resource": [
-          "arn:aws:cloudfront:::distribution/E3LB0EWZKCCV",   # data.nextstrain.org
-          "arn:aws:cloudfront:::distribution/E3L83FTHWUN0BV", # staging.nextstrain.org
+          "arn:aws:cloudfront::827581582529:distribution/E3LB0EWZKCCV",   # data.nextstrain.org
+          "arn:aws:cloudfront::827581582529:distribution/E3L83FTHWUN0BV", # staging.nextstrain.org
         ],
       }
     ]
