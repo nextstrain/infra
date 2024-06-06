@@ -41,3 +41,41 @@ resource "aws_iam_policy" "NextstrainPathogenNcovPrivate" {
     ]
   })
 }
+
+resource "aws_iam_policy" "NextstrainPathogenNcovPrivateReadOnly" {
+  name = "NextstrainPathogen@ncov+private-read-only"
+  description = "Provides permissions to read datasets, workflow files, etc. in the ncov-private bucket for the Nextstrain ncov pathogen"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "NcovPrivateList",
+        "Effect": "Allow",
+        "Action": [
+          "s3:ListBucket",
+          "s3:ListBucketVersions",
+          "s3:GetBucketLocation",
+          "s3:GetBucketVersioning",
+        ],
+        "Resource": [
+          "arn:aws:s3:::nextstrain-ncov-private",
+        ],
+      },
+      {
+        "Sid": "NcovPrivateReadWrite",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectTagging",
+          "s3:GetObjectVersion",
+          "s3:GetObjectVersionTagging",
+        ],
+        "Resource": [
+          # This bucket is akin to nextstrain-data-private/files/{workflows,datasets}/ncov/.
+          "arn:aws:s3:::nextstrain-ncov-private/*",
+        ],
+      },
+    ]
+  })
+}
