@@ -9,6 +9,7 @@ locals {
 
   pathogen_repos = tomap({
     # pathogen name   = [repo name, …]
+    "avian-flu"       = ["avian-flu"],
     "dengue"          = ["dengue"],
     "forecasts-ncov"  = ["forecasts-ncov"],
     "measles"         = ["measles"],
