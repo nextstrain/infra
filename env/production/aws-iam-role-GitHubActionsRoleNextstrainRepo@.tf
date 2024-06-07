@@ -19,7 +19,7 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainRepo" {
         "Condition": {
           "StringLike": {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub": "repo:nextstrain/${each.key}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*"
+            "token.actions.githubusercontent.com:sub": "repo:nextstrain/${each.key}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*:workflow_ref:*"
           }
         },
       }

@@ -22,10 +22,16 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
         "Condition": {
           "StringLike": {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub": [
-              for repo in keys(local.repo_pathogens):
-                "repo:nextstrain/${repo}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*"
-            ]
+            "token.actions.githubusercontent.com:sub": flatten([
+              [for repo in keys(local.repo_pathogens):
+                "repo:nextstrain/${repo}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*:workflow_ref:*"],
+
+              # Special case for seasonal flu's deploy-private-nextflu workflow which needs to download the private builds
+              # from AWS Batch before bundling/deploying them through Netlify.
+              # This special case can be removed when we finally sunset the private site.
+              #   -Jover, 07 June 2024
+              "repo:nextstrain/seasonal-flu:*:job_workflow_ref::workflow_ref:nextstrain/seasonal-flu/.github/workflows/deploy-private-nextflu.yaml",
+            ])
           }
         },
       }

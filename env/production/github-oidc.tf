@@ -9,7 +9,10 @@ resource "github_actions_repository_oidc_subject_claim_customization_template" "
     "repo",
     "context",
 
-    # …plus the <org>/<repo>/<path>@<ref> of the workflow obtaining the token, if any.
+    # …plus the <org>/<repo>/<path>@<ref> of the *reusable* workflow obtaining the token, if any.
     "job_workflow_ref",
+
+    # …plus the <org>/<repo>/<path>@<ref> of the workflow obtaining the token.
+    "workflow_ref",
   ]
 }
