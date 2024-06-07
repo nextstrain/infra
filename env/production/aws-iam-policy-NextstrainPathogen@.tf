@@ -9,7 +9,7 @@ resource "aws_iam_policy" "NextstrainPathogen" {
     "Version": "2012-10-17",
     "Statement": [
       # Technically we don't need to include the public buckets
-      # nextstrain-data and nextstrain-staging in this statement since they
+      # nextstrain-data and nextstrain-staging in these statements since they
       # already allow a superset of this with their bucket policies, but it's
       # good to be explicit about what permissions we require.
       #   -trs, 16 Feb 2024
@@ -24,7 +24,6 @@ resource "aws_iam_policy" "NextstrainPathogen" {
         ],
         "Resource": [
           "arn:aws:s3:::nextstrain-data",
-          "arn:aws:s3:::nextstrain-data-private",
           "arn:aws:s3:::nextstrain-staging",
         ],
         "Condition": {
@@ -32,6 +31,48 @@ resource "aws_iam_policy" "NextstrainPathogen" {
             "s3:prefix": [
               "${each.key}.json",
               "${each.key}_*.json",
+              "files/workflows/${each.key}/*",
+              "files/datasets/${each.key}/*",
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "ListStagingTrials",
+        "Effect": "Allow",
+        "Action": [
+          "s3:ListBucket",
+          "s3:ListBucketVersions",
+          "s3:GetBucketLocation",
+          "s3:GetBucketVersioning",
+        ],
+        "Resource": [
+          "arn:aws:s3:::nextstrain-staging",
+        ],
+        "Condition": {
+          "StringLike": {
+            "s3:prefix": [
+              "trial_*_${each.key}.json",
+              "trial_*_${each.key}_*.json",
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "ListPrivate",
+        "Effect": "Allow",
+        "Action": [
+          "s3:ListBucket",
+          "s3:ListBucketVersions",
+          "s3:GetBucketLocation",
+          "s3:GetBucketVersioning",
+        ],
+        "Resource": [
+          "arn:aws:s3:::nextstrain-data-private",
+        ],
+        "Condition": {
+          "StringLike": {
+            "s3:prefix": [
               "files/workflows/${each.key}/*",
               "files/datasets/${each.key}/*",
             ]
