@@ -68,12 +68,13 @@ pathogen-repo-build.yaml GitHub Actions workflow](https://github.com/nextstrain/
 2. Plan, review, and apply changes using the `terraform` command.  See synopsis
    above, as well as [nextstrain.org's Terraform documentation][].
 
-   The plan summary should be "3 to add, 1 to change, 0 to destroy".  Added
+   The plan summary should be "4 to add, 1 to change, 0 to destroy".  Added
    should be:
 
      - `aws_iam_policy.NextstrainPathogen["repo-name"]`
      - `aws_iam_role.GitHubActionsRoleNextstrainRepo["repo-name"]`
      - `github_actions_repository_oidc_subject_claim_customization_template.nextstrain["repo-name"]`
+     - `github_repository_topics.pathogen["repo-name"]`
 
    Changed should be:
 
