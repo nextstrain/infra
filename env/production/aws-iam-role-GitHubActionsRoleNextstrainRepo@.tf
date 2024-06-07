@@ -30,12 +30,13 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainRepo" {
     # Pathogen-specific permissions to standard public/private buckets
     [for p in each.value: aws_iam_policy.NextstrainPathogen[p].arn],
 
-    # Special-case permissions to nextstrain-ncov-private bucket
+    # Special-case repos associated with ncov
     contains(each.value, "ncov")
-      ? [aws_iam_policy.NextstrainPathogenNcovPrivate.arn]
+      ? [aws_iam_policy.NextstrainPathogenNcovPrivate.arn,
+         aws_iam_policy.NextstrainPathogenNcovNonStandardPaths.arn]
       : [],
 
-    # Special-case forecasts-ncov
+    # Special-case forecasts-ncov repo
     each.key == "forecasts-ncov"
       ? [aws_iam_policy.NextstrainPathogenNcovPrivateReadOnly.arn]
       : [],
