@@ -24,7 +24,7 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
             "token.actions.githubusercontent.com:sub": flatten([
               [for repo in keys(local.repo_pathogens):
-                "repo:nextstrain/${repo}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*:workflow_ref:*"],
+                "repo:nextstrain/${repo}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*"],
 
               # Special case for seasonal flu repo which needs to download the private builds
               # from AWS Batch before bundling/deploying them through Netlify.
