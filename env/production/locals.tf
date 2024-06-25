@@ -7,6 +7,8 @@ locals {
   # our needs.
   #   -trs, 20 May 2024
 
+  # These are pathogen repos that are using pathogen-repo-build. There are other
+  # pathogen repos that have not been automated yet that are not included here.
   pathogen_repos = tomap({
     # pathogen name   = [repo name, …]
     "avian-flu"       = ["avian-flu"],
