@@ -17,6 +17,7 @@ locals {
     "measles"         = ["measles"],
     "mpox"            = ["mpox"],
     "ncov"            = ["ncov", "ncov-ingest"],
+    "rabies"          = ["rabies"],
     "rsv"             = ["rsv"],
     "seasonal-flu"    = ["seasonal-flu"],
     "zika"            = ["zika"],
