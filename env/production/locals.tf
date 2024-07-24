@@ -20,6 +20,7 @@ locals {
     "ncov"            = ["ncov", "ncov-ingest"],
     "rabies"          = ["rabies"],
     "rsv"             = ["rsv"],
+    "seasonal-cov"    = ["seasonal-cov"],
     "seasonal-flu"    = ["seasonal-flu"],
     "zika"            = ["zika"],
   })
