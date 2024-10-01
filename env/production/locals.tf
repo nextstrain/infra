@@ -23,6 +23,7 @@ locals {
     "rsv"             = ["rsv"],
     "seasonal-cov"    = ["seasonal-cov"],
     "seasonal-flu"    = ["seasonal-flu"],
+    "wnv"             = ["wnv"],
     "zika"            = ["zika"],
   })
 
