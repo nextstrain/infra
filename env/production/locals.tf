@@ -25,6 +25,7 @@ locals {
     "seasonal-cov"    = ["seasonal-cov"],
     "seasonal-flu"    = ["seasonal-flu"],
     "WNV"             = ["WNV"],
+    "yellow-fever"    = ["yellow-fever"],
     "zika"            = ["zika"],
   })
 
