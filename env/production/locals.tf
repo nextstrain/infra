@@ -14,6 +14,7 @@ locals {
     "avian-flu"       = ["avian-flu"],
     "dengue"          = ["dengue"],
     "forecasts-ncov"  = ["forecasts-ncov"],
+    "hmpv"            = ["hmpv"],
     "lassa"           = ["lassa"],
     "measles"         = ["measles"],
     "mpox"            = ["mpox"],
