@@ -24,14 +24,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Install Terraform
-        run: >
-          wget -O - https://apt.releases.hashicorp.com/gpg
-          | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-          | sudo tee /etc/apt/sources.list.d/hashicorp.list
-
-          sudo apt update && sudo apt install terraform
+        run: |
+          wget -O terraform.zip https://releases.hashicorp.com/terraform/1.10.2/terraform_1.10.2_linux_amd64.zip
+          unzip terraform.zip -d "$HOME/terraform"
+          echo "$HOME/terraform" >> "$GITHUB_PATH"
 
       - uses: actions/checkout@v4
 
