@@ -17,6 +17,7 @@ locals {
     "hmpv"            = ["hmpv"],
     "lassa"           = ["lassa"],
     "measles"         = ["measles"],
+    "mumps"           = ["mumps"],
     "mpox"            = ["mpox"],
     "ncov"            = ["ncov", "ncov-ingest"],
     "nipah"           = ["nipah"],
