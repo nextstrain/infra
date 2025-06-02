@@ -24,6 +24,7 @@ locals {
     "oropouche"       = ["oropouche"],
     "rabies"          = ["rabies"],
     "rsv"             = ["rsv"],
+    "rubella"         = ["rubella"],
     "seasonal-cov"    = ["seasonal-cov"],
     "seasonal-flu"    = ["seasonal-flu"],
     "WNV"             = ["WNV"],
