@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.10.0"
   required_providers {
     aws = {
       source  = "registry.terraform.io/hashicorp/aws"
@@ -21,8 +21,8 @@ terraform {
     # Non-default workspaces use s3://nextstrain-terraform/workspace/${name}/infra/production/tfstate
     workspace_key_prefix = "workspace"
 
-    # Table has a LockID (string) partition/primary key
-    dynamodb_table = "nextstrain-terraform-locks"
+    # use an S3-based .tflock file as a semaphore
+    use_lockfile = true
   }
 }
 
