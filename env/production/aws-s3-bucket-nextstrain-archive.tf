@@ -11,6 +11,25 @@ resource "aws_s3_bucket_versioning" "nextstrain-archive" {
   }
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "nextstrain-archive" {
+  bucket = aws_s3_bucket.nextstrain-archive.id
+
+  rule {
+    id = "all-intelligent-tiering"
+
+    # we want everything in this bucket to go into the intelligent
+    # tiering storage class
+    filter {}
+
+    transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_ownership_controls" "nextstrain-archive" {
   bucket = aws_s3_bucket.nextstrain-archive.id
 
