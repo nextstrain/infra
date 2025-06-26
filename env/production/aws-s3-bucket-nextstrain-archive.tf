@@ -22,29 +22,6 @@ resource "aws_s3_bucket_ownership_controls" "nextstrain-archive" {
   }
 }
 
-resource "aws_s3_bucket_acl" "nextstrain-archive" {
-  depends_on = [aws_s3_bucket_ownership_controls.nextstrain-archive]
-
-  bucket = aws_s3_bucket.nextstrain-archive.id
-
-  acl = "private"
-
-  # the above ACL should be equivalent to this access_control_policy:
-
-  # access_control_policy {
-  #   grant {
-  #     grantee {
-  #       id   = data.aws_canonical_user_id.current.id
-  #       type = "CanonicalUser"
-  #     }
-  #     permission = "FULL_CONTROL"
-  #   }
-  #   owner {
-  #     id           = data.aws_canonical_user_id.current.id
-  #   }
-  # }
-}
-
 resource "aws_s3_bucket_server_side_encryption_configuration" "nextstrain-archive" {
   bucket = aws_s3_bucket.nextstrain-archive.id
 
