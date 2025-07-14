@@ -21,6 +21,7 @@ locals {
     "mpox"            = ["mpox"],
     "ncov"            = ["ncov", "ncov-ingest"],
     "nipah"           = ["nipah"],
+    "norovirus"       = ["norovirus"],
     "oropouche"       = ["oropouche"],
     "rabies"          = ["rabies"],
     "rsv"             = ["rsv"],
