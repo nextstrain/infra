@@ -29,6 +29,7 @@ locals {
     "rubella"         = ["rubella"],
     "seasonal-cov"    = ["seasonal-cov"],
     "seasonal-flu"    = ["seasonal-flu"],
+    "tb"              = ["tb"],
     "WNV"             = ["WNV"],
     "yellow-fever"    = ["yellow-fever"],
     "zika"            = ["zika"],
