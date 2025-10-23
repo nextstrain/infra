@@ -53,6 +53,14 @@ less understanding about Terraform state management.
 [`terraform import` command]: https://developer.hashicorp.com/terraform/cli/commands/import
 
 
+### Merging PRs; when to apply changes
+
+In general, please merge PR topic branches to `main`, push `main` to GitHub,
+and _then_ plan and apply the changes (as in the synopsis above).  This ensures
+that any changes to `main` in the meantime are properly incorporated with the
+PR's changes.
+
+
 ### How to add a new pathogen repository for use with `pathogen-repo-build`
 
 Some changes are necessary to support a repository's use of our [centralized
