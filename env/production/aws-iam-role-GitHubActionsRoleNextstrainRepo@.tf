@@ -41,6 +41,11 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainRepo" {
       ? [aws_iam_policy.NextstrainPathogenNcovPrivateReadOnly.arn]
       : [],
 
+    # Special-case forecasts-flu repo
+    each.key == "forecasts-flu"
+    ? [aws_iam_policy.NextstrainPathogen["seasonal-flu"].arn]
+    : [],
+
     # Builds inside the AWS Batch runtime need access to the jobs bucket.
     aws_iam_policy.NextstrainJobsAccessToBucket.arn,
   ])
