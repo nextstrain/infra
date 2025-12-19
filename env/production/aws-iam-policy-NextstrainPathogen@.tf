@@ -24,6 +24,7 @@ resource "aws_iam_policy" "NextstrainPathogen" {
         ],
         "Resource": [
           "arn:aws:s3:::nextstrain-data",
+          "arn:aws:s3:::nextstrain-data-unversioned",
           "arn:aws:s3:::nextstrain-staging",
         ],
         "Condition": {
@@ -105,6 +106,8 @@ resource "aws_iam_policy" "NextstrainPathogen" {
           # <https://docs.nextstrain.org/en/latest/reference/data-files.html>
           "arn:aws:s3:::nextstrain-data/files/workflows/${each.key}/*",
           "arn:aws:s3:::nextstrain-data/files/datasets/${each.key}/*",
+          "arn:aws:s3:::nextstrain-data-unversioned/files/workflows/${each.key}/*",
+          "arn:aws:s3:::nextstrain-data-unversioned/files/datasets/${each.key}/*",
           "arn:aws:s3:::nextstrain-data-private/files/workflows/${each.key}/*",
           "arn:aws:s3:::nextstrain-data-private/files/datasets/${each.key}/*",
           "arn:aws:s3:::nextstrain-staging/files/workflows/${each.key}/*",
