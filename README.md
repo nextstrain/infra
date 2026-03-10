@@ -27,7 +27,7 @@ Make those changes so:
 
 > [!IMPORTANT]
 > You'll need ambiently-configured AWS credentials with broad admin-level
-> access to read (and optionally modify) resources in our account.
+> access to read and modify resources in our account.
 >
 > You'll also need a `GITHUB_TOKEN` in the environment with the following
 > fine-grained token permissions on our repos:
