@@ -27,9 +27,10 @@ Make those changes so:
 
 > [!IMPORTANT]
 > You'll need ambiently-configured AWS credentials with broad admin-level
-> access to read (and optionally modify) resources in our account.
+> access to read and modify resources in our account.
 >
-> You'll also need a `GITHUB_TOKEN` in the environment with the following
+> You'll also need authentication for the [GitHub provider][]. This can be done
+> via GitHub CLI or a `GITHUB_TOKEN` environment variable with the following
 > fine-grained token permissions on our repos:
 >
 >   - `actions:write`
@@ -38,6 +39,7 @@ Make those changes so:
 > Please step cautiously and be careful when using these two sets of
 > credentials!
 
+[GitHub provider]: https://registry.terraform.io/providers/integrations/github/latest/docs
 
 ## Documentation
 
