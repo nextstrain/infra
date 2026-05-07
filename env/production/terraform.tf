@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "registry.terraform.io/hashicorp/aws"
-      version = "~> 4.32"
+      version = "~> 5.0"
     }
     github = {
       source  = "integrations/github"
