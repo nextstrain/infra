@@ -10,7 +10,7 @@ resource "aws_batch_job_queue" "nextstrain_job_queue" {
 
   compute_environment_order {
     order               = 1
-    compute_environment = aws_batch_compute_environment.c5_instances_2023_01_17.arn
+    compute_environment = aws_batch_compute_environment.c5_instances_2026_05_19.arn
   }
 }
 
