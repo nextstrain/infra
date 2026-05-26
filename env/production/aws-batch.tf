@@ -105,8 +105,6 @@ resource "aws_batch_compute_environment" "c7a_instances_2026_05_24" {
 
   compute_resources {
     allocation_strategy = "BEST_FIT"
-    bid_percentage      = 0
-    desired_vcpus       = 4
     instance_role       = "arn:aws:iam::827581582529:instance-profile/ecsInstanceRole"
     instance_type       = ["c7a.2xlarge", "c7a.4xlarge", "c7a.8xlarge", "c7a.large", "c7a.medium", "c7a.xlarge"]
     max_vcpus           = 512
@@ -115,7 +113,6 @@ resource "aws_batch_compute_environment" "c7a_instances_2026_05_24" {
     # dynamically instead of hardcoding them here.
     security_group_ids  = ["sg-09316f4e9077adc8c"]
     subnets             = ["subnet-ece172e0"]
-    tags                = {}
     type                = "EC2"
 
     ec2_configuration {
