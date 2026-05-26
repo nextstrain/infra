@@ -106,7 +106,7 @@ resource "aws_batch_compute_environment" "c7a_instances_2026_05_24" {
   compute_resources {
     allocation_strategy = "BEST_FIT"
     bid_percentage      = 0
-    desired_vcpus       = 4
+    desired_vcpus       = 64
     instance_role       = "arn:aws:iam::827581582529:instance-profile/ecsInstanceRole"
     instance_type       = ["c7a.2xlarge", "c7a.4xlarge", "c7a.8xlarge", "c7a.large", "c7a.medium", "c7a.xlarge"]
     max_vcpus           = 512
