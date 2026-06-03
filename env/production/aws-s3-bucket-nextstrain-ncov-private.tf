@@ -70,4 +70,26 @@ resource "aws_s3_bucket_lifecycle_configuration" "nextstrain-ncov-private" {
 
     status = "Enabled"
   }
+
+  rule {
+    id = "Cleanup files under trial/"
+
+    filter {
+      prefix = "trial/"
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 1
+    }
+
+    expiration {
+      days = 30
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 30
+    }
+
+    status = "Enabled"
+  }
 }
