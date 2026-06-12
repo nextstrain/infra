@@ -50,6 +50,23 @@ resource "aws_s3_bucket_lifecycle_configuration" "nextstrain-ncov-private" {
   transition_default_minimum_object_size = "varies_by_storage_class"
 
   rule {
+    id = "Delete all noncurrent files but one after 30 days"
+
+    filter {}
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 1
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days           = 30
+      newer_noncurrent_versions = 1
+    }
+
+    status = "Enabled"
+  }
+
+  rule {
     id = "Cleanup dev files under branch/"
 
     filter {
