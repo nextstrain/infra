@@ -67,14 +67,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "nextstrain-ncov-private" {
   }
 
   rule {
-    id = "Cleanup dev files under branch/"
+    id = "branch/: Delete all files after 15 days"
 
     filter {
       prefix = "branch/"
-    }
-
-    abort_incomplete_multipart_upload {
-      days_after_initiation = 1
     }
 
     expiration {
@@ -89,14 +85,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "nextstrain-ncov-private" {
   }
 
   rule {
-    id = "Cleanup files under trial/"
+    id = "trial/: Delete all files after 30 days"
 
     filter {
       prefix = "trial/"
-    }
-
-    abort_incomplete_multipart_upload {
-      days_after_initiation = 1
     }
 
     expiration {
