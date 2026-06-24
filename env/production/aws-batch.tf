@@ -148,7 +148,7 @@ resource "aws_batch_compute_environment" "c7a_instances_2026_05_24" {
 }
 
 resource "aws_batch_compute_environment" "c7a_12xlarge" {
-  name         = "c7a-instances-2026-05-24"
+  name         = "c7a-12xlarge"
   service_role = "arn:aws:iam::827581582529:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch"
   state        = "ENABLED"
   type         = "MANAGED"
