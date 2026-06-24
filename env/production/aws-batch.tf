@@ -106,7 +106,15 @@ resource "aws_batch_compute_environment" "c7a_instances_2026_05_24" {
   compute_resources {
     allocation_strategy = "BEST_FIT"
     instance_role       = "arn:aws:iam::827581582529:instance-profile/ecsInstanceRole"
-    instance_type       = ["c7a.2xlarge", "c7a.4xlarge", "c7a.8xlarge", "c7a.large", "c7a.medium", "c7a.xlarge"]
+    # Details: https://aws.amazon.com/ec2/pricing/on-demand/
+    instance_type = [
+      "c7a.medium",
+      "c7a.large",
+      "c7a.xlarge",
+      "c7a.2xlarge",
+      "c7a.4xlarge",
+      "c7a.8xlarge",
+    ]
     max_vcpus           = 512
     min_vcpus           = 0
     # TODO: Import VPC resources into Terraform and pull their IDs
