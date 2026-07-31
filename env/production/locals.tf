@@ -17,6 +17,7 @@ locals {
     "ebola"           = ["ebola"],
     "forecasts-flu"   = ["forecasts-flu"],
     "forecasts-ncov"  = ["forecasts-ncov"],
+    "hantavirus"      = ["hantavirus"],
     "hmpv"            = ["hmpv"],
     "lassa"           = ["lassa"],
     "measles"         = ["measles"],
