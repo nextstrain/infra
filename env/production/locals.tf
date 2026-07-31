@@ -50,11 +50,6 @@ locals {
   )
 
   # repo name → id for repos that use immutable subject claims.
-  # To get this value, go to GitHub > repo settings > Actions > OIDC and inspect
-  # the value for "Default subject claim prefix". Example value:
-  #
-  #     repo:nextstrain@22159334/hantavirus@1307765855
-  #
   repo_ids = tomap({
     "hantavirus" = "1307765855"
   })
