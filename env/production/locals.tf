@@ -49,12 +49,21 @@ locals {
     }),
   )
 
-  # repo name → id for repos that use immutable subject claims.
+  # Repo ids for OIDC immutable subject claims.¹
+  #
+  # An entry mapping the repo name to id is required if the "Use immutable
+  # subject claim" box is checked on the page:
+  #
+  #     https://github.com/nextstrain/<repo-name>/settings/actions/oidc-configuration
+  #
+  # You can get the repo id by running:
+  #
+  #     gh api repos/nextstrain/<repo-name> --jq .id
+  #
+  # ¹ https://docs.github.com/en/actions/reference/security/oidc#immutable-subject-claims
   repo_ids = tomap({
     "hantavirus" = "1307765855"
   })
-
-  # OIDC sub claim prefixes.
   repo_sub_prefixes = {
     for repo in keys(local.repo_pathogens) :
     repo => (
@@ -62,7 +71,7 @@ locals {
       contains(keys(local.repo_ids), repo)
       ? "repo:nextstrain@22159334/${repo}@${local.repo_ids[repo]}"
 
-      # Otherwise, use the legacy format ("repo:nextstrain/repo").
+      # Otherwise, use the legacy format.
       : "repo:nextstrain/${repo}"
     )
   }
