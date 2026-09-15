@@ -74,16 +74,14 @@ pathogen-repo-build.yaml GitHub Actions workflow](https://github.com/nextstrain/
    ```hcl
    "repo-name" = ["repo-name"],
    ```
-  If the repo was created after July 15, 2026, or if it has been opted into
-  [immutable subject claims](https://docs.github.com/en/actions/reference/security/oidc#immutable-subject-claims),
-  then be sure to add the repo id to the `repo_ids` variable in `env/production/locals.tf` as well.
-  You can get the repo id by running
 
-  ```
-  gh api repos/nextstrain/<repo-name> --jq .id
-  ```
+2. Check if the repo is configured to use an immutable subject claim by
+   inspecting the relevant checkbox at `https://github.com/nextstrain/<repo-name>/settings/actions/oidc-configuration`.
+   If the box is checked, add an entry under the `repo_ids` variable in
+   `env/production/locals.tf`. Instructions are in the comment above the
+   variable.
 
-2. Plan, review, and apply changes using the `terraform` command.  See synopsis
+3. Plan, review, and apply changes using the `terraform` command.  See synopsis
    above, as well as [nextstrain.org's Terraform documentation][].
 
    The plan summary should be "4 to add, 1 to change, 0 to destroy".  Added
