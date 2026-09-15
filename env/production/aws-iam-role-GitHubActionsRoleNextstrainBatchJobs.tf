@@ -33,7 +33,7 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainBatchJobs" {
               # that did not work as expected, so just allow any seasonal-flu GH Action workflow to access Batch.
               # This special case can be removed when we finally sunset the private site.
               #   -Jover, 07 June 2024
-              "repo:nextstrain/seasonal-flu:*",
+              "${local.repo_sub_prefixes["seasonal-flu"]}:*",
             ])
           }
         },
