@@ -19,7 +19,15 @@ resource "aws_iam_role" "GitHubActionsRoleNextstrainRepo" {
         "Condition": {
           "StringLike": {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub": "${local.repo_sub_prefixes[each.key]}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*"
+            "token.actions.githubusercontent.com:sub": flatten([
+              # Standard: only tokens minted via the shared pathogen-repo-build
+              # reusable workflow may assume the per-repo role:
+              "${local.repo_sub_prefixes[each.key]}:*:job_workflow_ref:nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@*",
+
+              # The following repos are allowed to assume the role by requesting credentials
+              # via a plain workflow (i.e. without using our 'pathogen-repo-build' reusable workflow).
+              each.key == "forecasts-flu" ? ["${local.repo_sub_prefixes[each.key]}:*"] : [],
+            ])
           }
         },
       }
