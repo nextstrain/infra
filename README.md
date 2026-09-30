@@ -36,10 +36,13 @@ Make those changes so:
 >   - `actions:write`
 >   - `administration:write`
 >
-> Please step cautiously and be careful when using these two sets of
-> credentials!
+> You'll also need authentication for the [DNSimple provider][], provided via a
+> `DNSIMPLE_TOKEN` environment variable (an account API access token).
+>
+> Please step cautiously and be careful when using these credentials!
 
 [GitHub provider]: https://registry.terraform.io/providers/integrations/github/latest/docs
+[DNSimple provider]: https://registry.terraform.io/providers/dnsimple/dnsimple/latest/docs
 
 ## Documentation
 
