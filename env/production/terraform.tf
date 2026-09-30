@@ -9,6 +9,10 @@ terraform {
       source  = "integrations/github"
       version = "~> 6.0"
     }
+    dnsimple = {
+      source  = "dnsimple/dnsimple"
+      version = "~> 2.0"
+    }
   }
 
   backend "s3" {
@@ -33,4 +37,9 @@ provider "aws" {
 provider "github" {
   # Authn is via GITHUB_TOKEN
   owner = "nextstrain"
+}
+
+provider "dnsimple" {
+  # Authn is via DNSIMPLE_TOKEN
+  account = "79981"
 }
