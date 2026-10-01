@@ -2,6 +2,31 @@
 # This file may be incomplete. Full list:
 # <https://app.dnsimple.com/a/79981/domains/nextstrain.org/records>
 
+import {
+  to = dnsimple_zone_record.root
+  id = "nextstrain.org_13657445"
+}
+
+resource "dnsimple_zone_record" "root" {
+  zone_name = "nextstrain.org"
+  name      = ""
+  value     = "nextstrain.org.herokudns.com"
+  type      = "ALIAS"
+  ttl       = 3600
+}
+
+import {
+  to = dnsimple_zone_record.www
+  id = "nextstrain.org_13657444"
+}
+
+resource "dnsimple_zone_record" "www" {
+  zone_name = "nextstrain.org"
+  name      = "www"
+  value     = "www.nextstrain.org.herokudns.com"
+  type      = "CNAME"
+  ttl       = 3600
+}
 resource "dnsimple_zone_record" "dev" {
   zone_name = "nextstrain.org"
   name      = "dev"
