@@ -39,8 +39,8 @@ resource "dnsimple_zone_record" "www" {
 resource "dnsimple_zone_record" "dev" {
   zone_name = "nextstrain.org"
   name      = "dev"
-  value     = "192.124.249.164"
-  type      = "A"
+  value     = "triangular-cantaloupe-7os9ny6f1oy00vw3apdgjn58.herokudns.com"
+  type      = "ALIAS"
   ttl       = 3600
 }
 
