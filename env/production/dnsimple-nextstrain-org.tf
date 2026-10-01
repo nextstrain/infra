@@ -35,6 +35,7 @@ resource "dnsimple_zone_record" "www" {
   type      = "CNAME"
   ttl       = 3600
 }
+
 resource "dnsimple_zone_record" "dev" {
   zone_name = "nextstrain.org"
   name      = "dev"
