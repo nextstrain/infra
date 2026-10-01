@@ -5,8 +5,8 @@
 resource "dnsimple_zone_record" "root" {
   zone_name = "nextstrain.org"
   name      = ""
-  value     = "nextstrain.org.herokudns.com"
-  type      = "ALIAS"
+  value     = "192.124.249.28"
+  type      = "A"
   ttl       = 3600
 }
 
