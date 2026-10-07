@@ -1,7 +1,8 @@
 # Nextstrain infrastructure
 
 Terraform configurations and related data and code for managing Nextstrain
-infrastructure on AWS (and maybe eventually Heroku, DNSimple, and more).
+infrastructure on AWS, GitHub, and DNSimple (and maybe eventually Heroku and
+more).
 
 This repository is for shared or cross-project infrastructure.
 Project-specific infrastructure for nextstrain.org is managed by [Terraform
