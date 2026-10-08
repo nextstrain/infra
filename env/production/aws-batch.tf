@@ -23,6 +23,20 @@ resource "aws_batch_job_queue" "nextstrain_job_queue_test" {
     order               = 1
     compute_environment = aws_batch_compute_environment.c7a_instances_2026_05_24.arn
   }
+
+  job_state_time_limit_action {
+    state            = "RUNNABLE"
+    reason           = "MISCONFIGURATION:COMPUTE_ENVIRONMENT_MAX_RESOURCE"
+    max_time_seconds = 600  # 10 minutes - shortest allowed duration
+    action           = "CANCEL"
+  }
+
+  job_state_time_limit_action {
+    state            = "RUNNABLE"
+    reason           = "MISCONFIGURATION:JOB_RESOURCE_REQUIREMENT"
+    max_time_seconds = 600  # 10 minutes - shortest allowed duration
+    action           = "CANCEL"
+  }
 }
 
 resource "aws_batch_job_queue" "nextstrain_job_queue_c7a_12xlarge" {
