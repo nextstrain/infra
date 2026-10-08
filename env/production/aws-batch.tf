@@ -14,6 +14,17 @@ resource "aws_batch_job_queue" "nextstrain_job_queue" {
   }
 }
 
+resource "aws_batch_job_queue" "nextstrain_job_queue_test" {
+  name     = "nextstrain-job-queue-test"
+  priority = 1
+  state    = "ENABLED"
+
+  compute_environment_order {
+    order               = 1
+    compute_environment = aws_batch_compute_environment.c7a_instances_2026_05_24.arn
+  }
+}
+
 resource "aws_batch_job_queue" "nextstrain_job_queue_c7a_12xlarge" {
   name     = "nextstrain-job-queue-c7a-12xlarge"
   priority = 1
