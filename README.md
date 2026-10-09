@@ -102,6 +102,10 @@ pathogen-repo-build.yaml GitHub Actions workflow](https://github.com/nextstrain/
        value entry like `repo:nextstrain/repo-name:*:job_workflow_ref:…`.
 
 
+### How to bulk import DNS records
+
+`scripts/dnsimple2tf.py` can be used to generate Terraform code for all records in a DNSimple zone. Remember to edit the generated resource names (`generated_placeholder_name_*`) to something more descriptive.
+
 ## Rule of thumb
 
 _from [previous discussion](https://github.com/nextstrain/nextstrain.org/issues/748#issuecomment-1792842452)_
