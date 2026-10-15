@@ -12,20 +12,6 @@ locals {
   }
 }
 
-# TODO: remove after move is applied
-moved {
-  from = aws_batch_job_queue.nextstrain_job_queue
-  to   = aws_batch_job_queue.queue["nextstrain-job-queue"]
-}
-moved {
-  from = aws_batch_job_queue.nextstrain_job_queue_test
-  to   = aws_batch_job_queue.queue["nextstrain-job-queue-test"]
-}
-moved {
-  from = aws_batch_job_queue.nextstrain_job_queue_c7a_12xlarge
-  to   = aws_batch_job_queue.queue["nextstrain-job-queue-c7a-12xlarge"]
-}
-
 resource "aws_batch_job_queue" "queue" {
   for_each = local.job_queues
   name     = each.key
