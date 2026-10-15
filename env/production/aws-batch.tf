@@ -1,52 +1,55 @@
-import {
-  to = aws_batch_job_queue.nextstrain_job_queue
-  id = "arn:aws:batch:us-east-1:827581582529:job-queue/nextstrain-job-queue"
+locals {
+  job_queues = {
+    "nextstrain-job-queue" = {
+      compute_environment = aws_batch_compute_environment.c7a_instances_2026_05_24.arn
+    }
+    "nextstrain-job-queue-test" = {
+      compute_environment = aws_batch_compute_environment.c7a_instances_2026_05_24.arn
+    }
+    "nextstrain-job-queue-c7a-12xlarge" = {
+      compute_environment = aws_batch_compute_environment.c7a_12xlarge.arn
+    }
+  }
 }
 
-resource "aws_batch_job_queue" "nextstrain_job_queue" {
-  name     = "nextstrain-job-queue"
+# TODO: remove after move is applied
+moved {
+  from = aws_batch_job_queue.nextstrain_job_queue
+  to   = aws_batch_job_queue.queue["nextstrain-job-queue"]
+}
+moved {
+  from = aws_batch_job_queue.nextstrain_job_queue_test
+  to   = aws_batch_job_queue.queue["nextstrain-job-queue-test"]
+}
+moved {
+  from = aws_batch_job_queue.nextstrain_job_queue_c7a_12xlarge
+  to   = aws_batch_job_queue.queue["nextstrain-job-queue-c7a-12xlarge"]
+}
+
+resource "aws_batch_job_queue" "queue" {
+  for_each = local.job_queues
+  name     = each.key
   priority = 1
   state    = "ENABLED"
 
   compute_environment_order {
     order               = 1
-    compute_environment = aws_batch_compute_environment.c7a_instances_2026_05_24.arn
-  }
-}
-
-resource "aws_batch_job_queue" "nextstrain_job_queue_test" {
-  name     = "nextstrain-job-queue-test"
-  priority = 1
-  state    = "ENABLED"
-
-  compute_environment_order {
-    order               = 1
-    compute_environment = aws_batch_compute_environment.c7a_instances_2026_05_24.arn
+    compute_environment = each.value.compute_environment
   }
 
+  # Automatically cancel some jobs stuck in RUNNABLE.
+  # <https://docs.aws.amazon.com/batch/latest/userguide/job_stuck_in_runnable_time_limit_actions.html>
   job_state_time_limit_action {
     state            = "RUNNABLE"
     reason           = "MISCONFIGURATION:COMPUTE_ENVIRONMENT_MAX_RESOURCE"
     max_time_seconds = 600  # 10 minutes - shortest allowed duration
     action           = "CANCEL"
   }
-
   job_state_time_limit_action {
     state            = "RUNNABLE"
     reason           = "MISCONFIGURATION:JOB_RESOURCE_REQUIREMENT"
     max_time_seconds = 600  # 10 minutes - shortest allowed duration
     action           = "CANCEL"
-  }
-}
-
-resource "aws_batch_job_queue" "nextstrain_job_queue_c7a_12xlarge" {
-  name     = "nextstrain-job-queue-c7a-12xlarge"
-  priority = 1
-  state    = "ENABLED"
-
-  compute_environment_order {
-    order               = 1
-    compute_environment = aws_batch_compute_environment.c7a_12xlarge.arn
   }
 }
 
