@@ -1,8 +1,3 @@
-import {
-  to = aws_batch_job_queue.nextstrain_job_queue
-  id = "arn:aws:batch:us-east-1:827581582529:job-queue/nextstrain-job-queue"
-}
-
 resource "aws_batch_job_queue" "nextstrain_job_queue" {
   name     = "nextstrain-job-queue"
   priority = 1
